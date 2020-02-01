@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Projekt Spende</title>
+
+        <script>
+        function check(){
+            var whatyouhave= parseFloat('{{balanceinfo[0][1]}}')
+            var betrag= parseFloat(document.getElementById('donate_money').value);
+            if (betrag > whatyouhave) {
+                alert('Donated amount exceeds your current balance');
+                return false;
+            }
+            return true;
+        }
+        </script>
+
+
+</head>
+
+
+<style type="text/css">
+#a{
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+}
+
+#spend{
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 300px;
+}
+
+
+#spendenbutton{
+    width: 150px;
+    height: 50px;
+    background-color: red;
+    font-size: 15px;
+    color: white;
+    font-weight: bold;
+    display: inline-block;
+    text-align: center;
+}
+
+
+#close{
+    text-color: red;
+    font-weight: 50px;
+    height: 70px;
+    width: 1000px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -100px;
+    margin-left: -350px;
+}
+
+
+#close1{
+    text-color: red;
+    font-weight: 50px;
+    height: 70px;
+    width: 1000px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -100px;
+    margin-left: -350px;
+}
+</style>
+<body>
+
+{% if name_status[0][1]== 'geschlossen' %}
+     <div id="close" >
+            <font id="cl" size="20" color="red" >THIS PROJECT IS ALREADY CLOSED!!! </font>
+     </div>
+{% elif alreadyspend %}
+          <div id="close1" >
+            <font id="cl1" size="20" color="red" >YOU ALREADY DONATED!!! </font>
+          </div>
+{% else %}
+      <br>
+      You have: {{balanceinfo[0][1]}} €
+
+      <div id= "a">
+            <p> <b> {{name_status[0][0]}} </b> </p>
+      </div>
+
+<!-- action="view_project"-->
+      <form onsubmit="return check()" id = "spend"  method="POST">
+              <input type="hidden"   name = "kennung" value= "{{kennung}}" />
+              <label> Spendenbetrag (€)</label>
+              <input type = "number"  id = "donate_money" name = "amount" min="0.01" step="0.01" required />
+              <br> <br>
+              <input id='spendenhidden' type='checkbox'  value='privat' name='sichtbarkeit'>Anonym spenden?
+              <input id='spendennothidden' type='hidden' value='oeffentlich' name='sichtbarkeit'>
+              <br>
+              <p id=" sbutton">
+                  <input type="submit" id = "spendenbutton"  value="Spenden">
+              </p>
+      </form>
+{% endif %}
+</body>
+</html>

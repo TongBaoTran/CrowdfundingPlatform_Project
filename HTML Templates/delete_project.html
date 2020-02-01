@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Projekt löschen</title>
+</head>
+
+
+<style type="text/css">
+
+#del{
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 70px;
+}
+
+#confirmbutton{
+    width: 200px;
+    height: 50px;
+    background-color: red;
+    font-size: 15px;
+    color: white;
+    font-weight: bold;
+    display: inline-block;
+    text-align: center;
+}
+
+#notown{
+    text-color: red;
+    font-weight: 30px;
+    height: 70px;
+    width: 1300px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -100px;
+    margin-left: -600px;
+}
+
+#main{
+    text-align: center;
+    margin-top: 150px;
+}
+</style>
+
+
+
+<body>
+
+{% if notowner %}
+     <div id="notown" >
+            <font id="cl" size="10" color="red">YOU ARE NOT ALLOWED TO DELETE THIS PROJECT!!! </font>
+     </div>
+
+{% else %}
+    <div id="main">
+
+      <font size="15" color="red" > You are deleting project {{name_creator[0][0]}} ....</font>
+      <br>
+      <br>
+      <form id = "del" method="POST">
+              <input type="hidden" name = "kennung" value= "{{kennung}}" />
+              <input type="submit" id = "confirmbutton"  value="Confirm to proceed">
+      </form>
+
+    </div>
+{% endif %}
+</body>
+</html>

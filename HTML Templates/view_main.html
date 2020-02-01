@@ -1,0 +1,253 @@
+<html>
+<head>
+	<title>ProjectFunder</title>
+</head>
+
+<style type="text/css">
+* {
+   margin:0;
+   padding:0;
+}
+
+body{
+   text-align:center;
+   height: 100%;
+   background: #efe4bf none repeat scroll 0 0;
+}
+
+#wrapper{
+   width:900px;
+   height: 1000px;
+   margin:0 auto;
+   text-align:left;
+   background-color: #fff;
+   border-radius: 0 0 10px 10px;
+   padding: 50px;
+   box-shadow: 1px -2px 50px rgba(0, 0, 0, 0.4);
+}
+
+#header{
+ color: #fff;
+ background-color: #2c5b9c;
+ height: 3.5em;
+ padding: 1em 0em 1em 1em;
+
+}
+
+#site{
+    background-color: #fff;
+    padding: 20px 0px 0px 0px;
+}
+
+.centerBlock{
+	margin:0 auto;
+}
+
+
+#meinprofile{
+    margin-bottom: 1cm;
+    width: 20px;
+    height: 20px;
+}
+
+#probutton{
+    margin-bottom: 1cm;
+    width: 150px;
+    height: 40px;
+    background-color: #2c5b9c;
+    font-size: 15px;
+    color: white;
+    font-weight: bold;
+}
+
+#openproject{
+    margin-bottom: 2cm;
+}
+
+#pro{
+  width: 200px;
+  height: 100px;
+  text-align:center;
+  border: 2px solid black;
+}
+
+#pro1{
+  width: 200px;
+  height: 100px;
+  text-align:center;
+  border: 2px solid black;
+}
+.open{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 20px;
+  grid-auto-rows: 100px;
+}
+
+.close{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 20px;
+  grid-auto-rows: 100px;
+}
+
+#projecterstellen{
+	margin-left: 700px;
+	margin-bottom: 100px;
+}
+
+#projecterstellenbutton{
+    margin-bottom: 1cm;
+    width: 150px;
+    height: 40px;
+    background-color: #2c5b9c;
+    font-size: 15px;
+    color: white;
+    font-weight: bold;
+}
+
+
+#viewproject{
+   width: 100%;
+   text-decoration:underline;
+   background: none;
+   border:none;
+   font-size: 17px;
+   font-weight:bold;
+
+}
+
+#viewprofile{
+   width: 150px;
+   background: none;
+   border:none;
+   font-size: 15px;
+   text-align:center;
+
+}
+
+#viewprofile1{
+   width: 100%;
+   background: none;
+   border:none;
+   font-size: 15px;
+   text-align:center;
+
+}
+
+#viewproject1{
+   width: 200px;
+   background: none;
+   border:none;
+   font-size: 17px;
+   text-align:center;
+   font-weight:bold;
+   text-decoration:underline;
+}
+
+#offenpro{
+    font-size: 25px;
+    font-weight: bold;
+}
+
+#geschlossenpro{
+    font-size: 25px;
+    font-weight: bold;
+}
+
+#gosearch{
+	float: right;
+}
+
+</style>
+
+<body>
+	<div id="wrapper">
+		<div id="header">
+		<h1> ProjectFunder Website </h1>
+		</div>
+
+		<div id="site">
+		<p>
+			Die Datenbank {{db2name}} ist {{db2exists}}
+		</p>
+		</div>
+
+		<a id="gosearch" href="/search">Go to search</a>
+
+		<br>
+
+		<div id="meinprofile">
+		<form action="view_profile"  method="GET">
+			<input type="hidden"   name = "user_email" value= "{{current_user.email}}"/>
+			<input type="hidden"   name = "user_name" value= "{{current_user.name}}"/>
+        	<input id= "probutton" type="submit" value="Mein profile" />
+        </form>
+		</div>
+		<br>
+		<br>
+
+		<div id = "offenpro">
+        	<b> OFFENE PROJEKTE</b>
+   		</div>
+
+        <br>
+
+		<div class="open">
+		{% for project in dataopen %}
+			<div id="pro">
+				<img src={{project[1]}} alt="art" width="40" height="40">
+				<form action="view_project" method="GET">
+					<input type="hidden"  name = "kennung" value= "{{project[0]}}"/>
+    				<input type="submit"  id = "viewproject"  value= "{{project[2]}}"/>
+				 </form>
+
+				<form action="view_profile" method="GET">
+					<input type="hidden"  name = "user_email" value= "{{project[3]}}"/>
+					<input type="hidden"   name = "user_name" value= "{{project[4]}}"/>
+    				<input type="submit"  id = "viewprofile"  value= "Von: {{project[4]}}"/>
+				 </form>
+				Aktuell: {{project[5]}} €
+			</div>
+		{% endfor %}
+		</div>
+        <br>
+        <br>
+		<br>
+
+
+		<div id = "geschlossenpro">
+        	<b> ABGESCHLOSSENE PROJEKTE</b>
+   		</div>
+		<br>
+
+		<div class="close">
+		{% for project in dataclose %}
+			<div id="pro1">
+				<img src={{project[1]}} alt="art" width="40" height="40">
+				<form action="view_project" method="GET">
+					<input type="hidden"   name = "kennung" value= "{{project[0]}}"/>
+    				<input type="submit"  id = "viewproject1"  value= "{{project[2]}}"/>
+				</form>
+
+				<form action="view_profile" method="GET">
+					<input type="hidden"  name = "user_email" value= "{{project[3]}}"/>
+					<input type="hidden"   name = "user_name" value= "{{project[4]}}"/>
+    				<input type="submit"  id = "viewprofile1"  value= "Von: {{project[4]}}"/>
+				 </form>
+				Aktuell: {{project[5]}}
+			</div>
+		{% endfor %}
+		</div>
+        <br>
+		<br>
+
+
+		<div id="projecterstellen">
+		<form action="new_project">
+         	<input id= "projecterstellenbutton" type="submit" value="Projekt erstellen" />
+        </form>
+		</div>
+	</div>
+</body>
+</html>

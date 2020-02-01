@@ -1,0 +1,222 @@
+<!DOCTYPE HTML>
+<html lang = "en">
+  <head>
+    <title>Projekt Erstellen</title>
+    <meta charset = "UTF-8" />
+  </head>
+<style type="text/css">
+#sub{
+    background-color: #fff;
+    padding: 5px 0px 0px 0px;
+    margin:0 auto;
+    text-align:right;
+}
+
+#titel{
+	margin-left: 90px;
+}
+
+
+#edu1{
+	margin-left: 72px;
+}
+
+#tech1{
+	margin-left: 60px;
+}
+#edu2{
+	margin-left: 72px;
+}
+
+#tech2{
+	margin-left: 60px;
+}
+
+#edu3{
+	margin-left: 72px;
+}
+
+#tech3{
+	margin-left: 60px;
+}
+
+#edu4{
+	margin-left: 72px;
+}
+
+#tech4{
+	margin-left: 60px;
+}
+
+
+#vorgangerbutton1{
+	margin-left: 80px;
+}
+#vorgangerbutton2{
+	margin-left: 80px;
+}
+#vorgangerbutton3{
+	margin-left: 80px;
+}
+
+
+#kein1{
+	margin-left: 80px;
+}
+
+#kein2{
+	margin-left: 80px;
+}
+
+#header{
+    text-align: center;
+    font-size: 40px;
+}
+
+#ak{
+    margin-right: 70px;
+    width: 120px;
+    height: 50px;
+    background-color: green;
+    font-size: 15px;
+    color: white;
+    font-weight: bold;
+}
+
+
+#close{
+    text-color: red;
+    font-weight: 20px;
+    height: 70px;
+    width: 1200px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -100px;
+    margin-left: -350px;
+}
+
+
+#close1{
+    text-color: red;
+    font-weight: 40px;
+    height: 70px;
+    width: 1200px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -100px;
+    margin-left: -550px;
+}
+#id{
+    font-size: 20px;
+}
+</style>
+
+<body>
+
+{% if olddata[0][6]== 'geschlossen' %}
+     <div id="close" >
+            <font id="cl" size="7" color="red"> THIS PROJECT IS ALREADY CLOSED!!! </font>
+     </div>
+
+{% elif notowner %}
+     <div id="close1" >
+            <font id="cl1" size="20" color="red" >YOU ARE NOT ALLOWED TO EDIT THIS PROJECT!!! </font>
+     </div>
+
+{% else %}
+    <h1 id="header">Projekt editieren</h1>
+    <form name="editproject" method="POST">
+        <input type="hidden"  name = "kennung" value="{{kennung}}"/>
+        <p id="p1">
+          <label >Titel</label>
+          <input type = "text" id = "titel" name = "title" minlength = "1" maxlength="30" size="30"  required value="{{name_status[0][0]}}" />
+        </p>
+
+        <p>
+          <label>Finanzierungslimit</label>
+          <input type = "number" name = "limit" min="{{olddata[0][5]}}" step="0.01" required  value="{{olddata[0][5]}}" />
+        </p>
+
+        {% if olddata[0][1]== 1 %}
+            <p>
+              <label>Kategorie</label>
+              <input type="radio" id="health1" name="category" value = "1" required checked="checked">
+              <label for="health1"> Health & Wellness</label>
+              <input type="radio" id="art1" name="category" value = "2"> Art & Creative Works<br>
+              <input type="radio" id="edu1" name="category" value = "3">
+              <label for="edu1">Education</label>
+              <input type="radio" id="tech1" name="category" value = "4"> Tech & Innovation<br>
+            </p>
+
+        {% elif olddata[0][1]== 2 %}
+            <p>
+              <label>Kategorie</label>
+              <input type="radio" id="health2" name="category" value = "1" required >
+              <label for="health2"> Health & Wellness</label>
+              <input type="radio" id="art2" name="category" value = "2" checked="checked"> Art & Creative Works<br>
+              <input type="radio" id="edu2" name="category" value = "3">
+              <label for="edu2">Education</label>
+              <input type="radio" id="tech2" name="category" value = "4"> Tech & Innovation<br>
+            </p>
+        {% elif olddata[0][1]== 3 %}
+            <p>
+              <label>Kategorie</label>
+              <input type="radio" id="health3" name="category" value = "1" required>
+              <label for="health3"> Health & Wellness</label>
+              <input type="radio" id="art3" name="category" value = "2"> Art & Creative Works<br>
+              <input type="radio" id="edu3" name="category" value = "3" checked="checked">
+              <label for="edu3">Education</label>
+              <input type="radio" id="tech3" name="category" value = "4"> Tech & Innovation<br>
+            </p>
+        {% else %}
+            <p>
+              <label>Kategorie</label>
+              <input type="radio" id="health4" name="category" value = "1" required>
+              <label for="health4"> Health & Wellness</label>
+              <input type="radio" id="art4" name="category" value = "2"> Art & Creative Works<br>
+              <input type="radio" id="edu4" name="category" value = "3">
+              <label for="edu4">Education</label>
+              <input type="radio" id="tech4" name="category" value = "4" checked="checked"> Tech & Innovation<br>
+            </p>
+        {% endif %}
+
+
+        <p>
+          <label>Vorgänger</label>
+           <br>
+            {% if project_vorgaenger %}
+               {% for x in vorgaenger %}
+                   {% if project_vorgaenger[0][0] == x[0] %}
+                      <input type="radio" id = "vorgangerbutton1" name="vorganger" value="{{x[0]}}" required checked="checked"> {{x[1]}}<br>
+                   {% else %}
+                       <input type="radio" id = "vorgangerbutton2" name="vorganger" value="{{x[0]}}" required> {{x[1]}}<br>
+                   {% endif %}
+               {% endfor %}
+                      <input type="radio" id = "kein1" name="vorganger" value="0"> Kein Vorgänger<br>
+            {% else %}
+                 {% for x in vorgaenger %}
+                <input type="radio" id = "vorgangerbutton3" name="vorganger" value="{{x[0]}}" required> {{x[1]}}<br>
+                {% endfor %}
+                <input type="radio" id = "kein2" name="vorganger" value="0" checked="checked"> Kein Vorgänger<br>
+            {% endif %}
+        </p>
+
+        <p>
+          <label>Beschreibung</label>
+          <textarea name = "beschreibung"
+                    rows = "5"
+                    cols = "180">{{olddata[0][4]}}</textarea>
+        </p>
+
+        <div id="sub">
+            <p>
+              <input type="submit" id = "ak" value="Aktualisieren">
+            </p>
+        </div>
+    </form>
+
+  {% endif %}
+  </body>
+</html>

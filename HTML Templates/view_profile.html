@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Nutzer Profil</title>
+</head>
+
+
+<style type="text/css">
+
+#profil{
+    margin-left: 15px;
+    font-size: 25px;
+}
+
+#name{
+    margin-left: 15px;
+    font-size: large;
+}
+
+#numerstellt{
+    margin-left: 15px;
+    font-size: large;
+}
+
+#numunter{
+    margin-left: 15px;
+    font-size: large;
+}
+
+
+#erstellt{
+    margin-left: 15px;
+    font-size: 20px;
+}
+
+
+#unter{
+    margin-left: 15px;
+    font-size: 20px;
+}
+
+
+.er{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 20px;
+  grid-auto-rows: 100px;
+}
+
+.un{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 40px;
+  grid-auto-rows: 100px;
+}
+
+#pro{
+  width: 200px;
+  height: 100px;
+  text-align:center;
+  border: 2px solid black;
+}
+
+#pro1{
+  width: 200px;
+  height: 120px;
+  text-align:center;
+  border: 2px solid black;
+}
+
+
+#tri{
+   width: 200px;
+   text-decoration:underline;
+   background: none;
+   border:none;
+   font-size: 15px;
+   font-weight: bold;
+
+}
+
+
+#tri1{
+   width: 200px;
+   text-decoration:underline;
+   background: none;
+   border:none;
+   font-size: 15px;
+   font-weight: bold;
+}
+
+#gomain{
+	float: right;
+}
+</style>
+
+
+
+
+
+<body>
+          <a id="gomain" href="/view_main">Back to main page</a>
+     <div>
+        <p  id = "profil"> <b> Profil von  {{user_email}}</b> </p>
+     </div>
+     <div>
+        <p  id = "name">  <b> Benutzer name:  {{user_name}} </b> </p>
+     </div>
+     <div>
+        <p  id = "numerstellt"> <b> Anzahl erstellter Projekte: {{num_erstellt}}  </b>  </p>
+     </div>
+     <div>
+        <p  id = "numunter"> <b> Anzahl unterstützter Projekte:  {{num_unterstutzt}} </b> </p>
+     </div>
+    <br>
+
+<hr size="4" color = "black">
+
+
+     <div>
+        <p  id = "erstellt"> <b> Erstellte Projekte</b> </p>
+     </div>
+		<div class="er">
+		{% for data in dataerstellt %}
+			<div id="pro">
+				<img src={{data[0]}} alt="art" width="40" height="40">
+				<form action="view_project" method="GET">
+					<input type="hidden"   name = "kennung" value= "{{data[1]}}"/>
+    				<input type="submit"  id = "tri"  value= "{{data[2]}}"/>
+				 </form>
+				 Aktuell: {{data[3]}} €
+				<br>
+				 Status: {{data[4]}}
+			</div>
+		{% endfor %}
+		</div>
+        <br>
+
+	 <hr size="4" color = "black">
+
+     <div>
+        <p  id = "unter"> <b> Unterstützte Projekte</b> </p>
+     </div>
+		<div class="un">
+		{% for data in dataunterstutzt %}
+			<div id="pro1">
+				<img src={{data[0]}} alt="art" width="40" height="40">
+				<form action="view_project" method="GET">
+					<input type="hidden"   name = "kennung" value= "{{data[1]}}"/>
+    				<input type="submit"  id = "tri1"  value= "{{data[2]}}"/>
+				 </form>
+				 Aktuell: {{data[3]}}
+				<br>
+				 Status: {{data[4]}}
+				<br>
+				 Gespendet: {{data[5]}}
+			</div>
+		{% endfor %}
+		</div>
+        <br>
+</body>
+</html>

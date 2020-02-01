@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Projekt Suche</title>
+</head>
+
+
+<style type="text/css">
+#suche{
+    margin-right: 70px;
+    width: 120px;
+    height: 32px;
+    background-color: green;
+    font-size: 15px;
+    color: white;
+    font-weight: bold;
+}
+
+#titel{
+   font-size: 30px;
+   font-color: black;
+   font-weight: bold;
+   margin-left: 400px;
+}
+
+#keyword{
+    width: 250px;
+    height: 25px;
+}
+
+#searchform{
+   margin-top: 20px;
+}
+
+
+#erg{
+   font-size: 30px;
+   font-color: black;
+   font-weight: bold;
+}
+
+
+#suche1{
+    margin-right: 70px;
+    width: 120px;
+    height: 32px;
+    background-color: green;
+    font-size: 15px;
+    color: white;
+    font-weight: bold;
+}
+
+#titel1{
+   font-size: 30px;
+   font-color: black;
+   font-weight: bold;
+   margin-left: 400px;
+}
+
+#keyword1{
+    width: 250px;
+    height: 25px;
+}
+
+#searchform1{
+   margin-top: 20px;
+}
+
+
+#erg1{
+   font-size: 30px;
+   font-color: black;
+   font-weight: bold;
+}
+
+#erg2{
+   font-size: 20px;
+   font-color: black;
+   font-weight: bold;
+}
+
+#pro{
+  width: 200px;
+  height: 120px;
+  text-align:center;
+  border: 2px solid black;
+}
+
+
+.x{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 50px;
+  grid-auto-rows: 100px;
+}
+
+
+#back1{
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   height: 40px;
+   width: 100%;
+   background-color: blue;
+   color: white;
+   font-weight: bold;
+   text-align: center;
+   font-size: 17px;
+}
+
+#back2{
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   height: 40px;
+   width: 100%;
+   background-color: blue;
+   color: white;
+   font-weight: bold;
+   text-align: center;
+   font-size: 17px;
+}
+
+</style>
+
+
+<body>
+{% if results %}
+
+        <div id="searchform">
+             <form name="searchform" method="POST">
+                  <label id = "titel">Titel:</label>
+                  <input type = "text" id = "keyword" name = "searchword" required />
+                  <input type="submit" id = "suche" value="Suche">
+            </form>
+        </div>
+        <hr size="2" color = "black">
+
+        <p id = "erg">Suchergibnisse</p>
+
+        <div class="x">
+            {% for i in results %}
+                <div id="pro">
+                    <img src={{i[0]}} alt="art" width="30" height="30">
+                    <br>
+                    <b>{{i[1]}} </b>
+                    <br>
+                    <b>von: </b> {{i[2]}}
+                    <br>
+                    <b> Aktuell:</b> {{i[3]}} €
+                    <br>
+                    <b>Status:</b> {{i[4]}} €
+                </div>
+            {% endfor %}
+        </div>
+            <button id ="back1" onclick="window.location.href = '/view_main';">Back to main page</button>
+
+{% else %}
+        <div id="searchform1">
+             <form name="searchform1" method="POST">
+                  <label id = "titel1">Titel:</label>
+                  <input type = "text" id = "keyword1" name = "searchword" required />
+                  <input type="submit" id = "suche1" value="Suche">
+            </form>
+        </div>
+        <hr size="2" color = "black">
+
+        <p id = "erg1">Suchergibnisse</p>
+        <p id = "erg2">{{phrase}}</p>
+
+     <button id ="back2" onclick="window.location.href = '/view_main';">Back to main page</button>
+{% endif %}
+</body>
+</html>

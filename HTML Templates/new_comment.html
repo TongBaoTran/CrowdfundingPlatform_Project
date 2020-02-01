@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Projekt Kommentar</title>
+
+        <script>
+        function check(){
+            var whatyouhave= parseFloat('{{currentbalance}}')
+            var betrag= parseFloat(document.getElementById('donate_money').value);
+            if(betrag>whatyouhave){
+                alert('Donated amount exceeds your current balance');
+                return false;
+            }
+            return true;
+        }
+        </script>
+</head>
+
+
+<style type="text/css">
+#a{
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+}
+
+#spend{
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 300px;
+}
+
+#commentbutton{
+    width: 300px;
+    height: 50px;
+    background-color: purple;
+    font-size: 15px;
+    color: white;
+    font-weight: bold;
+    display: inline-block;
+    text-align: center;
+    margin-left: 500px;
+}
+
+
+</style>
+<body>
+      <br>
+          <div id= "a">
+                <p> <b> {{projectname[0][0]}} </b> </p>
+          </div>
+
+          <form method="POST">
+                  <input type="hidden"   name = "kennung" value= "{{kennung}}" />
+                  <br> <br>
+                  <input id='spendenhidden' type='checkbox'  value='privat' name='sichtbarkeit'>Anonym kommentieren?
+                  <input id='spendennothidden' type='hidden' value='oeffentlich' name='sichtbarkeit'>
+                  <br>
+                  <textarea name = "kommentar" rows = "7"  cols = "180" required></textarea>
+                  <p id=" cbutton">
+                      <input type="submit" id = "commentbutton"  value="Kommentar hinzufügen">
+                  </p>
+          </form>
+</body>
+</html>

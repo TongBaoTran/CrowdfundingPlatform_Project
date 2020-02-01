@@ -1,0 +1,97 @@
+<!DOCTYPE HTML>
+<html lang = "en">
+  <head>
+    <title>Projekt Erstellen</title>
+    <meta charset = "UTF-8" />
+  </head>
+<style type="text/css">
+#sub{
+    background-color: #fff;
+    padding: 5px 0px 0px 0px;
+    margin:0 auto;
+    text-align:right;
+}
+
+#titel{
+	margin-left: 90px;
+}
+
+
+#edu{
+	margin-left: 72px;
+}
+
+#tech{
+	margin-left: 60px;
+}
+#vorgangerbutton{
+	margin-left: 80px;
+}
+
+#kein{
+	margin-left: 80px;
+}
+
+#header{
+    text-align: center;
+    font-size: 40px;
+}
+
+#erstellen{
+    margin-right: 70px;
+    width: 120px;
+    height: 50px;
+    background-color: green;
+    font-size: 15px;
+    color: white;
+    font-weight: bold;
+}
+</style>
+
+  <body>
+    <h1 id="header">Projekt erstellen</h1>
+    <form name="createproject" method="POST">
+        <p>
+          <label>Titel</label>
+          <input type = "text" id = "titel" name = "title" minlength = "1" maxlength="30" size="30" required />
+        </p>
+
+        <p>
+          <label>Finanzierungslimit</label>
+          <input type = "number" name = "limit" min="100" step="0.01" required/> €
+        </p>
+
+        <p>
+          <label>Kategorie</label>
+          <input type="radio" id="health" name="category" value = "1" required>
+          <label for="health"> Health & Wellness</label>
+          <input type="radio" id="art" name="category" value = "2"> Art & Creative Works<br>
+          <input type="radio" id="edu" name="category" value = "3">
+          <label for="edu">Education</label>
+          <input type="radio" id="tech" name="category" value = "4"> Tech & Innovation<br>
+        </p>
+
+        <p>
+          <label>Vorgänger</label>
+           <br>
+          {% for x in vorgaenger %}
+          <input type="radio" id = "vorgangerbutton" name="vorganger" value="{{x[0]}}" required> {{x[1]}}<br>
+		  {% endfor %}
+          <input type="radio" id = "kein" name="vorganger" value="0"> Kein Vorgänger<br>
+        </p>
+
+        <p>
+          <label>Beschreibung</label>
+          <textarea name = "beschreibung"
+                    rows = "5"
+                    cols = "180"></textarea>
+        </p>
+
+        <div id="sub">
+            <p>
+              <input type="submit" id = "erstellen" value="Erstellen"">
+            </p>
+        </div>
+    </form>
+  </body>
+</html>

@@ -1,1 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Project Details</title>
+</head>
 
+
+
+<style type="text/css">
+#info{
+    font-size: 30px;
+    font-weight: bold;
+}
+#informationen1{
+    font-size: 15px;
+    text-align:center;
+}
+
+#projectname{
+        font-size: 20px;
+}
+
+
+#informationen2{
+    font-size: 18px;
+    font-weight: bold;
+}
+
+
+#viewprofile{
+   font-weight: bold;
+   width: 150px;
+   background: none;
+   border:none;
+   font-size: 15px;
+   text-align:center;
+}
+
+#beschreibung{
+    line-height: 20px;
+}
+
+
+#vor_form{
+    display: inline-block;
+    line-height: 30px;
+}
+
+#vorganger{
+   width: 200px;
+   text-decoration:underline;
+   background: none;
+   border:none;
+   font-weight: bold;
+   font-size: 15px;
+}
+
+#aktion{
+    font-size: 30px;
+    font-weight: bold;
+}
+
+
+#spend{
+    width: 150px;
+    height: 50px;
+    background-color: green;
+    font-size: 15px;
+    color: white;
+    font-weight: bold;
+    display: inline-block;
+}
+
+#del{
+    width: 150px;
+    height: 50px;
+    background-color: red;
+    font-size: 15px;
+    color: white;
+    font-weight: bold;
+    display: inline-block;
+}
+
+#edit{
+    width: 150px;
+    height: 50px;
+    background-color: blue;
+    font-size: 15px;
+    color: white;
+    font-weight: bold;
+    display: inline-block;
+}
+
+
+#outer
+{
+    width:100%;
+    text-align: center;
+}
+.inner
+{
+    margin-left: 120px;
+    display: inline-block;
+}
+
+#outer1
+{
+    width:100%;
+}
+.inner1
+{
+     margin-left: 120px;
+    display: inline-block;
+}
+
+
+#listspender{
+    font-size: 30px;
+    font-weight: bold;
+}
+
+
+#listcomment{
+    font-size: 30px;
+    font-weight: bold;
+}
+
+
+#komproj{
+    float:right;
+    display: inline-block;
+    margin-bottom: 50px;
+    margin-right:20px;
+}
+
+#kom{
+    width: 150px;
+    height: 50px;
+    background-color: LightSeaGreen;
+    font-size: 15px;
+    color: white;
+    font-weight: bold;
+    display: inline-block;
+}
+
+#gomain{
+	float: right;
+}
+
+</style>
+
+
+<body>
+          <a id="gomain" href="/view_main">Back to main page</a>
+   <div id= "info">
+     <p> <b> Informationen</b> </p>
+   </div>
+		<div id="informationen">
+            {% for i in info %}
+                <div id="informationen1">
+                    <p><img src={{i[1]}} alt="art" width="50" height="50"> </p>
+                    <p id="projectname"> <b> {{i[2]}} </b> </p>
+
+                    <form action="view_profile" method="GET">
+                        <input type="hidden"  name = "user_email" value= "{{i[3]}}"/>
+                        <input type="hidden"   name = "user_name" value= "{{i[4]}}"/>
+                        <input type="submit"  id = "viewprofile"  value= "Von: {{i[4]}}"/>
+				    </form>
+
+                    <p id="beschreibung"> {{i[5]}}</p>
+                </div>
+                <div id="informationen2">
+                    <p>Finanzierungslimit:  {{i[6]}} €</p>
+
+                    {% if info_sumspenden  %}
+                        <p> <b> Aktuelle Spendensumme: {{info_sumspenden}} €</b> </p>
+    			    {% else %}
+        			    <p><b> Aktuelle Spendensumme: 0.00 €</b> </p>
+    			    {% endif %}
+
+                    <p> Status: {{i[7]}}</p>
+
+                    {% if info_vorgaenger  %}
+                        <p>
+                            <div id="outer1">
+                                <div class=""inner1> Vorgänger-Projekt: </div>
+                                <div class=""inner1>
+                                    <form id = "vor_form" action="view_project" method="GET">
+                                        <input type="hidden"  name = "kennung" value= "{{info_vorgaenger[0][0]}}"/>
+                                        <input type="submit"  id = "vorganger"  value= "{{info_vorgaenger[0][1]}}"/>
+                                    </form>
+                                </div>
+                            </div>
+                         </p>
+    			    {% else %}
+        			    <p>Vorgänger-Projekt: Kein Vorgänger vorhanden </p>
+    			    {% endif %}
+                </div>
+		    {% endfor %}
+        <hr size="4" color = "black">
+
+		</div>
+
+   <div id = "aktion">
+        <b> Aktionsleiste</b>
+
+       <div  id="outer">
+           {% for i in info %}
+           <div class = "inner">
+            <form id = "spend_form" action="new_project_fund" method="GET">
+               <input type="hidden"  name = "kennung" value= "{{i[0]}}"/>
+               <input type="submit"  id = "spend"  value= "Spenden"/>
+            </form>
+            </div>
+
+           <div class = "inner">
+            <form id = "deleteproj" action="delete_project" method="GET">
+               <input type="hidden"  name = "kennung" value= "{{i[0]}}"/>
+               <input type="submit"  id = "del"  value= "Projekt löschen"/>
+            </form>
+            </div>
+
+            <div class = "inner">
+            <form id = "editproj" action="edit_project" method="GET">
+               <input type="hidden"  name = "kennung" value= "{{i[0]}}"/>
+               <input type="submit"  id = "edit"  value= "Projekt editieren"/>
+            </form>
+            </div>
+            {% endfor %}
+       </div>
+       <hr size="4" color = "black">
+
+   </div>
+
+   <div id = "listspender">
+        <b> Liste der Spender</b>
+   </div>
+       <div>
+       {% for spender in spendList %}
+        <p> {{spender[1]}}: {{spender[2]}} € </p>
+       {% endfor %}
+       </div>
+
+   <hr size="4" color = "black">
+
+
+   <div id = "listcomment">
+        <b> Kommentare</b>
+   </div>
+
+       <div>
+       {% for komment in kommentList %}
+        <p> {{komment[1]}}: {{komment[2]}} </p>
+       {% endfor %}
+       </div>
+
+
+   {% for i in info %}
+   <div >
+       <form id = "komproj" action="new_comment" method="GET">
+           <input type="hidden"  name = "kennung" value= "{{i[0]}}"/>
+           <input type="submit"  id = "kom"  value= "Kommentieren"/>
+       </form>
+   {% endfor %}
+   </div>
+
+</body>
+</html>
