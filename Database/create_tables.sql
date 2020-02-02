@@ -68,7 +68,3 @@ CREATE TABLE schreibt (
   	FOREIGN KEY (kommentar) REFERENCES kommentar(id)
 );
 
-https://i.ibb.co/fFBYTSQ/art.png        2
-https://i.ibb.co/Q9Yw4bR/education.png    3
-https://i.ibb.co/1zMzRRk/health.png          1
-https://i.ibb.co/9srmkDx/tech.png       4
